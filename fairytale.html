@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairytale Love Story</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:black;
+  color:white;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+.stars{
+  position:fixed;
+  inset:0;
+  background-image:
+  radial-gradient(2px 2px at 20px 30px, white, transparent),
+  radial-gradient(2px 2px at 40px 70px, white, transparent),
+  radial-gradient(2px 2px at 90px 40px, white, transparent),
+  radial-gradient(2px 2px at 130px 80px, white, transparent);
+  background-size:200px 200px;
+  animation:sparkle 10s linear infinite;
+  opacity:0.3;
+  z-index:-1;
+}
+
+@keyframes sparkle{
+  from{transform:translateY(0)}
+  to{transform:translateY(-200px)}
+}
+
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  position:relative;
+  background:linear-gradient(to bottom,#000,#111827,#000);
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url('YOUR-HERO-IMAGE.jpg') center/cover;
+  opacity:0.25;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:850px;
+}
+
+.hero h1{
+  font-size:70px;
+  font-family:'Cinzel',serif;
+  text-shadow:0 0 20px rgba(255,255,255,0.4);
+}
+
+.hero p{
+  margin-top:20px;
+  font-size:22px;
+  color:#d1d5db;
+  line-height:1.8;
+}
+
+.magic-btn{
+  margin-top:40px;
+  padding:16px 40px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#9333ea,#06b6d4);
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.4s;
+  box-shadow:0 0 25px rgba(147,51,234,0.5);
+}
+
+.magic-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 45px rgba(6,182,212,0.7);
+}
+
+section{
+  padding:100px 20px;
+}
+
+.title{
+  text-align:center;
+  font-size:55px;
+  margin-bottom:70px;
+  font-family:'Cinzel',serif;
+}
+
+.characters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:30px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:40px;
+  border-radius:30px;
+  backdrop-filter:blur(15px);
+  text-align:center;
+  transition:0.4s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 40px rgba(255,255,255,0.1);
+}
+
+.character-img{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  border:5px solid rgba(255,255,255,0.15);
+  box-shadow:0 0 35px rgba(255,255,255,0.15);
+}
+
+.card h2{
+  margin-top:25px;
+  font-size:42px;
+  font-family:'Cinzel',serif;
+}
+
+.card p{
+  margin-top:20px;
+  color:#d1d5db;
+  line-height:2;
+}
+
+.boy{
+  color:#67e8f9;
+}
+
+.girl{
+  color:#f9a8d4;
+}
+
+.character-btn,
+.story-btn,
+.close-btn{
+  margin-top:30px;
+  padding:14px 28px;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  color:white;
+  font-size:16px;
+  position:relative;
+  overflow:hidden;
+  transition:0.4s;
+}
+
+.character-btn,
+.story-btn{
+  background:linear-gradient(45deg,#8b5cf6,#ec4899);
+  box-shadow:0 0 25px rgba(139,92,246,0.5);
+}
+
+.close-btn{
+  background:linear-gradient(45deg,#ec4899,#8b5cf6);
+}
+
+.character-btn::before,
+.story-btn::before{
+  content:'';
+  position:absolute;
+  top:-100%;
+  left:-100%;
+  width:300%;
+  height:300%;
+  background:radial-gradient(circle,rgba(255,255,255,0.4),transparent);
+  transition:0.8s;
+}
+
+.character-btn:hover::before,
+.story-btn:hover::before{
+  top:0;
+  left:0;
+}
+
+.character-btn:hover,
+.story-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 45px rgba(236,72,153,0.7);
+}
+
+.timeline{
+  max-width:900px;
+  margin:auto;
+}
+
+.story-box{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:35px;
+  border-radius:30px;
+  margin-bottom:30px;
+  line-height:2;
+  backdrop-filter:blur(15px);
+  opacity:0;
+  transform:translateY(60px);
+  transition:1s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.story-box.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.story-box:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 40px rgba(147,51,234,0.25);
+}
+
+.transition-glow{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle,rgba(255,255,255,0.15),transparent);
+  opacity:0;
+  transition:0.6s;
+}
+
+.story-box:hover .transition-glow{
+  opacity:1;
+}
+
+.popup,
+.story-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.6s;
+  z-index:999;
+  padding:20px;
+}
+
+.popup.active,
+.story-popup.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.popup-card,
+.story-popup-card{
+  width:100%;
+  max-width:850px;
+  border-radius:35px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(20px);
+  animation:cinematicZoom 1s ease;
+}
+
+.popup-card img,
+.story-popup-card img{
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+.popup-content,
+.story-popup-content{
+  padding:35px;
+  text-align:center;
+}
+
+.popup-content h2,
+.story-popup-content h2{
+  font-size:42px;
+  margin-bottom:20px;
+  font-family:'Cinzel',serif;
+}
+
+.popup-content p,
+.story-popup-content p{
+  color:#e2e8f0;
+  line-height:2;
+  font-size:18px;
+}
+
+@keyframes cinematicZoom{
+  0%{
+    transform:scale(0.7) rotate(-2deg);
+    opacity:0;
+    filter:blur(10px);
+  }
+  100%{
+    transform:scale(1);
+    opacity:1;
+    filter:blur(0);
+  }
+}
+
+@media(max-width:768px){
+  .hero h1,
+  .title{
+    font-size:42px;
+  }
+
+  .hero p{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Our Story Was Never Ordinary ✨</h1>
+
+    <p>
+      Two broken souls. One office. And a love story that slowly started feeling like destiny.
+    </p>
+
+    <button class="magic-btn" onclick="showDestiny()">
+      Enter Our Destiny ✨
+    </button>
+  </div>
+</section>
+
+<section>
+  <h1 class="title">Our Souls ✨</h1>
+
+  <div class="characters">
+
+    <div class="card">
+      <img class="character-img" src="boy.jpeg">
+
+      <h2 class="boy">The Boy ✨</h2>
+
+      <p>
+        The office extrovert. Always joking. Always smiling.
+        But behind every laugh was a childish heart silently waiting for someone who truly cared.
+      </p>
+
+      <button class="character-btn" onclick="openBoy()">
+        Know His Heart 💙
+      </button>
+    </div>
+
+    <div class="card">
+      <img class="character-img" src="girl.jpeg">
+
+      <h2 class="girl">The Girl ✨</h2>
+
+      <p>
+        Quiet. Soft-spoken. Hard to understand.
+        She only spoke freely where she felt emotionally safe.
+      </p>
+
+      <button class="character-btn" onclick="openGirl()">
+        Know Her Soul 💖
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h1 class="title">Our Story ✨</h1>
+
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<div class="popup" id="boyPopup">
+  <div class="popup-card">
+    <img src="boy.jpeg">
+
+    <div class="popup-content">
+      <h2 class="boy">The Boy ✨ Behind The Smile</h2>
+
+      <p>
+        Everyone loved his energy.
+        But nobody noticed how deeply he cared for tiny things.
+        Around her… he finally stopped pretending to be strong.
+      </p>
+
+      <button class="close-btn" onclick="closePopup('boyPopup')">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="popup" id="girlPopup">
+  <div class="popup-card">
+    <img src="girl2.jpeg">
+
+    <div class="popup-content">
+      <h2 class="girl">The Girl ✨ Who Feared Attachment</h2>
+
+      <p>
+        Silence protected her heart for years.
+        But his childish honesty slowly became her comfort place.
+      </p>
+
+      <button class="close-btn" onclick="closePopup('girlPopup')">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const story = [
+  "He was the office extrovert. Always joking and making everyone laugh.",
+  "But behind all those smiles… he was secretly carrying pain.",
+  "She was the quiet girl who only spoke when she felt emotionally safe.",
+  "One small carrom game became the beginning of everything.",
+  "Slowly… they became each other’s comfort place.",
+  "Their timings, thoughts, and feelings started matching magically.",
+  "Even silence started feeling beautiful around each other.",
+  "One day she softly asked… Can you be my happily ever after?"
+];
+
+const storyImages = [
+  'first.jpeg',
+  'second.jpeg',
+  'third.jpeg',
+  'carom4.jpeg',
+  'timing5.jpeg',
+  'each5.jpeg',
+  'feels.jpeg',
+  'last.jpeg'
+  
+];
+
+const timeline = document.getElementById('timeline');
+
+story.forEach((text,index)=>{
+  const div = document.createElement('div');
+  div.className='story-box';
+
+  div.innerHTML=`
+    <div class="transition-glow"></div>
+
+    <div>${text}</div>
+
+    <button class="story-btn" onclick="openStoryPopup(${index})">
+      Feel This Moment ✨
+    </button>
+  `;
+
+  timeline.appendChild(div);
+
+  setTimeout(()=>{
+    div.classList.add('show');
+  },index*250);
+});
+
+function showDestiny(){
+  const popup = document.createElement('div');
+  popup.className='story-popup active';
+
+  popup.innerHTML=`
+  <div class="story-popup-card">
+
+    <img src="Background1.jpeg">
+
+    <div class="story-popup-content">
+      <h2>Welcome To Our Destiny ✨</h2>
+
+      <p>
+        Every small moment...
+        every random coincidence...
+        every silent feeling...
+        slowly brought us toward each other.
+        
+        Maybe we were never strangers.
+        Maybe our souls were already searching for each other long before we met.
+      </p>
+
+      <button class="close-btn" onclick="this.closest('.story-popup').remove()">
+        Enter Our Story ✨
+      </button>
+    </div>
+  </div>
+  `;
+
+  document.body.appendChild(popup);
+}
+
+function openBoy(){
+  document.getElementById('boyPopup').classList.add('active');
+}
+
+function openGirl(){
+  document.getElementById('girlPopup').classList.add('active');
+}
+
+function closePopup(id){
+  document.getElementById(id).classList.remove('active');
+}
+
+function openStoryPopup(index){
+  const popup=document.createElement('div');
+  popup.className='story-popup active';
+
+  popup.innerHTML=`
+  <div class="story-popup-card">
+
+    <img src="${storyImages[index % storyImages.length]}">
+
+    <div class="story-popup-content">
+      <h2>Our Fairytale Moment ✨</h2>
+
+      <p>${story[index]}</p>
+
+      <button class="close-btn" onclick="this.closest('.story-popup').remove()">
+        Close Scene
+      </button>
+    </div>
+  </div>
+  `;
+
+  document.body.appendChild(popup);
+}
+</script>
+
+</body>
+</html>
+
+
